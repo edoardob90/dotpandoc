@@ -1,0 +1,315 @@
+%
+% EPFL report Pandoc template
+% Source: MultiMarkdown template from Scrivener for ``Modern article''. Modified slightly by me, to fit the EPFL report template I used. It's also a test for the future thesis workflow.
+% This work via the workflow: Scrivener + Pandocomatic
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% What follows is the content of the old ``mmd6-leader.tex''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+% Setup compilation chain with Arara (if used)
+% arara: xelatex
+% arara: xelatex
+
+\documentclass[oneside,article,12pt]{memoir}
+
+\usepackage{layouts}[2001/04/29]
+\usepackage[svgnames]{xcolor}
+% colors
+\definecolor{coolgrey}{Hsb}{293, 0.0, 0.5}
+\definecolor{plumbgrey}{Hsb}{314, 0.3, 0.5}
+\definecolor{redgrey}{Hsb}{337, 0.31, 0.6}
+
+
+\usepackage{amssymb}
+\usepackage[acronym]{glossaries}
+\glstoctrue
+\makeglossaries
+\makeindex
+
+\usepackage{ifxetex}
+\ifxetex
+	% Designed to work with a default macOS font installation
+	\usepackage{fontspec}
+	\setmainfont[BoldFont = Minion Pro Semibold]{Minion Pro}
+	\setmonofont[Scale = 0.8]{Menlo}
+	\newfontfamily\helvetican[
+		ItalicFont = Avenir Oblique
+	]{Avenir}
+	\newfontfamily\helveticanl[
+		ItalicFont = Avenir Light Oblique
+	]{Avenir Light}
+	\newfontfamily\applegothic{AppleGothic}
+\else
+	\renewcommand{\familydefault}{\sfdefault}
+	\newcommand{\helvetican}{}
+	\newcommand{\helveticanl}{}
+\fi
+
+% Body Text Formatting
+\linespread{1.2}
+\setlength{\abnormalparskip}{\bigskipamount}
+\setlength{\parindent}{0em}
+
+
+% Footnotes
+\setlength{\footmarkwidth}{1.8em}
+\setlength{\footmarksep}{0em}
+\footmarkstyle{\footnotesize{#1}.\hfill}
+\setfootins{16pt}{16pt}
+\setlength{\footnotesep}{16pt}
+
+
+%
+%	8.5 x 11 layout for memoir-based documents
+%   As defined in the stock MultiMarkdown system
+%
+%%% need more space for ToC page numbers
+\setpnumwidth{2.55em}
+\setrmarg{3.55em}
+
+%%% need more space for ToC section numbers
+\cftsetindents{part}{0em}{3em}
+\cftsetindents{chapter}{0em}{3em}
+\cftsetindents{section}{3em}{3em}
+\cftsetindents{subsection}{4.5em}{3.9em}
+\cftsetindents{subsubsection}{8.4em}{4.8em}
+\cftsetindents{paragraph}{10.7em}{5.7em}
+\cftsetindents{subparagraph}{12.7em}{6.7em}
+
+%%% need more space for LoF numbers
+\cftsetindents{figure}{0em}{3.0em}
+
+%%% and do the same for the LoT
+\cftsetindents{table}{0em}{3.0em}
+
+%%% set up the page layout
+\settrimmedsize{\stockheight}{\stockwidth}{*}	% Use entire page
+\settrims{0pt}{0pt}
+
+% Comment out the following command and replace it with the second, below it, if you intend to use CriticMarkup's margin notes, or marginalia of any sort.
+\setlrmarginsandblock{1in}{1in}{*}
+% \setlrmarginsandblock{1in}{2.5in}{*}
+\setulmarginsandblock{1in}{1in}{*}
+
+\setmarginnotes{17pt}{1.5in}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabulary}
+%\usepackage{listings}
+\usepackage[sort&compress]{natbib}
+\usepackage[normalem]{ulem}
+
+% Make use of MultiMarkdown's CriticMarkup support for proofing notations
+% If you have installed your own copy of MMD, you should use the second command instead.
+\input{"/Applications/Scrivener 3.app/Contents/Resources/MultiMarkdown/latex-support/mmd6-criticmarkup.tex"}
+
+\VerbatimFootnotes
+
+% Section Headings
+\setsecheadstyle{\LARGE\raggedright}
+\setsubsecheadstyle{\large\raggedright}
+\setsubsubsecheadstyle{\normalsize\raggedright}
+
+\maxsecnumdepth{chapter}
+\setsecnumdepth{chapter}
+\settocdepth{section}
+
+% Spacing Model
+% Use "negative" values for the beforeXskip settings; this indicates the following paragraph should have its indent suppressed.
+\setbeforesecskip{-14pt}
+\setaftersecskip{12pt}
+\setbeforesubsecskip{-14pt}
+\setaftersubsecskip{12pt}
+\setbeforesubsubsecskip{-14pt}
+\setaftersubsubsecskip{6pt}
+
+% Chapter heading style
+\makechapterstyle{modern-style}{
+    \renewcommand*{\chaptitlefont}{\helveticanl\large\raggedright\normalfont}
+    \renewcommand*{\chapnumfont}{\helvetican\Huge\raggedright\mdseries}
+	\renewcommand*{\chapnamefont}{\chapnumfont}
+	\renewcommand*{\printchaptername}{\newpage\chapnamefont\color{redgrey}{Chapter}}
+	\renewcommand*{\printchapternum}{\chapnumfont\color{redgrey}{\numtoName{\thechapter}}}
+	\setlength{\beforechapskip}{24pt}
+    \setlength{\afterchapskip}{24pt}
+	\setlength{\midchapskip}{6pt}
+}
+\chapterstyle{modern-style}
+
+% Part Breaks
+\renewcommand{\parttitlefont}{\helvetican\Large\raggedright\normalfont\color{redgrey}}
+\renewcommand{\partnamefont}{\helvetican\fontsize{30pt}{30pt}\raggedright\mdseries\color{redgrey}}
+\renewcommand{\partnumfont}{\partnamefont}
+\renewcommand{\beforepartskip}{\null\vfil\thispagestyle{empty}}
+\renewcommand{\midpartskip}{\par\vspace{6pt}}
+% Comment the following line if you wish to print the name of the part
+\renewcommand{\printparttitle}[1]{}
+\renewcommand{\afterpartskip}{}
+
+\ifxetex
+	\newcommand{\sectionbreak}{\fancybreak{\applegothic{\footnotesize{❖}}}}
+\else
+	\newcommand{\sectionbreak}{\fancybreak{* * *}}
+\fi
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defining \author and \title according to Pandoc metadata file in Scrivener
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\def\mytitle{$title$}
+$if(author)$
+\def\myauthor{$author.name$}
+$endif$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% What follows is the content of the old ``mmd6-begin.tex''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Set up PDF
+\usepackage[
+	plainpages=false,
+	colorlinks=true,
+	urlcolor=plumbgrey,
+	linkcolor=plumbgrey,
+	citecolor=plumbgrey,
+	filecolor=plumbgrey,
+	pdfpagelabels,
+	pdftitle={\mytitle},
+	pagebackref,
+	pdfauthor={\myauthor},
+	bookmarksnumbered=true,
+	bookmarksopen=true
+	]{hyperref}
+\hypersetup{bookmarksdepth=3}
+\usepackage{memhfixc}
+
+%
+%	Configure information from metadata for use in title
+%   Using default MultiMarkdown methods
+
+\ifx\latexauthor\undefined
+\else
+	\def\myauthor{\latexauthor}
+\fi
+
+\ifx\subtitle\undefined
+\else
+%	\addtodef{\mytitle}{}{ \\ \subtitle}
+	\expandafter\def\expandafter\mytitle\expandafter{\mytitle \\ \subtitle}
+\fi
+
+\ifx\affiliation\undefined
+\else
+%	\addtodef{\myauthor}{}{ \\ \affiliation}
+	\expandafter\def\expandafter\myauthor\expandafter{\myauthor \\ \affiliation}
+\fi
+
+\ifx\address\undefined
+\else
+%	\addtodef{\myauthor}{}{ \\ \address}
+	\expandafter\def\expandafter\myauthor\expandafter{\myauthor \\ \address}
+\fi
+
+\ifx\phone\undefined
+\else
+%	\addtodef{\myauthor}{}{ \\ \phone}
+	\expandafter\def\expandafter\myauthor\expandafter{\myauthor \\ \phone}
+\fi
+
+\ifx\email\undefined
+\else
+%	\addtodef{\myauthor}{}{ \\ \email}
+	\expandafter\def\expandafter\myauthor\expandafter{\myauthor \\ \email}
+\fi
+
+\ifx\event\undefined
+\else
+	\date[\mydate]{\today}
+\fi
+
+\ifx\latextitle\undefined
+	\def\latextitle{\mytitle}
+\else
+\fi
+
+%%% Setup different firstpage layout
+\usepackage{fancyhdr}
+
+\fancypagestyle{firstpage}{
+
+\setlength{\headheight}{60pt}
+
+\fancyhead[R]{\includegraphics[width=0.25\textwidth]{epfl_logo}}
+
+\fancyhead[L]{{\Large\textsc{doctoral program in\\ material science \&
+engineering}}}
+
+\fancyfoot{}
+
+}
+
+
+\begin{document}
+
+\title{\mytitle}
+\author{\myauthor}
+
+\ifx\mydate\undefined
+\else
+	\date{\mydate}
+\fi
+
+\maketitle
+\thispagestyle{firstpage}
+\vspace{4cm}
+\begin{tabular}{m{6cm} m{5cm} m{3cm}}
+  %\hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  %\bfseries{Report Type:} & Final & \\\\\\
+  \bfseries{PhD Student:} & \myauthor & \dotfill{} \\\\\\
+  \bfseries{Thesis Director:} & Prof.~Michele Ceriotti & \dotfill{} \\\\\\
+  \bfseries{Comments by the Thesis Director:} & \multicolumn{2}{c}{\dotfill{}}\\
+  & \multicolumn{2}{c}{\dotfill{}}\\
+  & \multicolumn{2}{c}{\dotfill{}}\\
+  & \multicolumn{2}{c}{\dotfill{}}\\
+  & \multicolumn{2}{c}{\dotfill{}}\\
+  & \multicolumn{2}{c}{\dotfill{}}\\
+  %\hline
+\end{tabular}%
+
+\pagebreak
+\tableofcontents
+\thispagestyle{empty}
+\pagebreak
+
+% Define default pagestyle (with fancyhdr package)
+\pagestyle{fancy}
+\fancyhead{}
+\setlength{\headheight}{24pt}
+\fancyhead[LO]{\thepage}
+\fancyhead[RO]{\myauthor}
+\fancyhead[RE]{\thepage}
+\fancyhead[LE]{Annual Thesis Report}
+\fancyfoot{}
+
+\mainmatter
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% What follows is the main content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+$body$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% What follows is the content of the old ``mmd6-footer.tex''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here I should add the bibliography settings 
+%
+\end{document}
